@@ -1143,7 +1143,13 @@ anychart.mapModule.Chart.prototype.onMouseDown = function(event) {
       }
     }
   } else {
-    anychart.mapModule.Chart.base(this, 'onMouseDown', event);
+    var context = this.currentScene || this;
+    /*
+      base.call is used because closure compiler produces a
+      compilation error 
+      "ERROR - incorrect use of anychart.mapModule.Chart.base: First argument must be 'this'."
+     */
+    anychart.mapModule.Chart.base.call(context, 'onMouseDown', event);
   }
 };
 
