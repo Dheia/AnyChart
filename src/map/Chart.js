@@ -1095,6 +1095,11 @@ anychart.mapModule.Chart.prototype.handleMouseDown = function(event) {
   }
 };
 
+/** @inheritDoc */
+anychart.mapModule.Chart.prototype.getMouseDownContext = function () {
+  return this.currentScene || this;
+};
+
 
 /** @inheritDoc */
 anychart.mapModule.Chart.prototype.onMouseDown = function(event) {
@@ -1143,13 +1148,7 @@ anychart.mapModule.Chart.prototype.onMouseDown = function(event) {
       }
     }
   } else {
-    var context = this.currentScene || this;
-    /*
-      base.call is used because closure compiler produces a
-      compilation error 
-      "ERROR - incorrect use of anychart.mapModule.Chart.base: First argument must be 'this'."
-     */
-    anychart.mapModule.Chart.base.call(context, 'onMouseDown', event);
+    anychart.mapModule.Chart.base(this, 'onMouseDown', event);
   }
 };
 
